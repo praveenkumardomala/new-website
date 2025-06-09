@@ -1,0 +1,1008 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aditya Engineering College</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+        }
+
+        .logo::before {
+            content: "🎓";
+            margin-right: 10px;
+            font-size: 2rem;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-menu a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+        }
+
+        .nav-menu a:hover {
+            background: rgba(255,255,255,0.2);
+            transform: translateY(-2px);
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(30,60,114,0.8), rgba(42,82,152,0.8)), url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600"><rect fill="%23f0f8ff" width="1200" height="600"/><circle fill="%23e6f3ff" cx="200" cy="150" r="100"/><circle fill="%23d9edff" cx="800" cy="400" r="80"/><circle fill="%23cce7ff" cx="1000" cy="200" r="120"/></svg>');
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            padding: 2rem;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            font-weight: 300;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+            animation: fadeInUp 1s ease-out 0.3s both;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            animation: fadeInUp 1s ease-out 0.6s both;
+        }
+
+        .btn {
+            padding: 15px 30px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: linear-gradient(45deg, #ff6b6b, #ff8e8e);
+            color: white;
+            box-shadow: 0 5px 15px rgba(255,107,107,0.4);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: white;
+            border: 2px solid white;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+
+        /* Sections */
+        .section {
+            padding: 80px 0;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: #2c3e50;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(45deg, #3498db, #2980b9);
+            border-radius: 2px;
+        }
+
+        /* About Section */
+        .about {
+            background: #f8f9fa;
+        }
+
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            margin-top: 2rem;
+        }
+
+        .about-text {
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+
+        .about-stats {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 2rem;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .stat-item:hover {
+            transform: translateY(-5px);
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #3498db;
+            display: block;
+        }
+
+        .stat-label {
+            font-size: 1rem;
+            color: #666;
+            margin-top: 0.5rem;
+        }
+
+        /* Programs Section */
+        .programs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .program-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+
+        .program-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+
+        .program-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .program-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .program-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+
+        .program-content {
+            padding: 2rem;
+        }
+
+        .program-features {
+            list-style: none;
+            margin: 1rem 0;
+        }
+
+        .program-features li {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .program-features li::before {
+            content: "✓";
+            color: #27ae60;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+
+        /* Faculty Section */
+        .faculty {
+            background: #f8f9fa;
+        }
+
+        .faculty-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .faculty-card {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            text-align: center;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .faculty-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .faculty-photo {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            margin: 0 auto 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: white;
+        }
+
+        .faculty-name {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: #2c3e50;
+        }
+
+        .faculty-position {
+            color: #3498db;
+            font-weight: 500;
+            margin-bottom: 1rem;
+        }
+
+        .faculty-bio {
+            font-size: 0.9rem;
+            color: #666;
+            line-height: 1.6;
+        }
+
+        /* Admissions Section */
+        .admissions {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .admissions-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .admissions-form {
+            background: rgba(255,255,255,0.1);
+            padding: 2rem;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px 15px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            background: rgba(255,255,255,0.9);
+        }
+
+        .form-group textarea {
+            height: 100px;
+            resize: vertical;
+        }
+
+        /* Contact Section */
+        .contact {
+            background: #2c3e50;
+            color: white;
+        }
+
+        .contact-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+        }
+
+        .contact-item {
+            text-align: center;
+        }
+
+        .contact-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: #3498db;
+        }
+
+        .contact-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .contact-info {
+            font-size: 1rem;
+            opacity: 0.9;
+        }
+
+        /* Footer */
+        .footer {
+            background: #1a1a1a;
+            color: white;
+            text-align: center;
+            padding: 2rem 0;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h3 {
+            margin-bottom: 1rem;
+            color: #3498db;
+        }
+
+        .footer-section a {
+            color: #ccc;
+            text-decoration: none;
+            display: block;
+            margin-bottom: 0.5rem;
+            transition: color 0.3s ease;
+        }
+
+        .footer-section a:hover {
+            color: #3498db;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid #333;
+            padding-top: 1rem;
+            color: #999;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-menu {
+                display: none;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .about-content,
+            .admissions-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .section {
+                padding: 60px 0;
+            }
+        }
+
+        /* Smooth Scrolling */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Mobile Menu Toggle */
+        .mobile-menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        @media (max-width: 768px) {
+            .mobile-menu-toggle {
+                display: block;
+            }
+            
+            .nav-menu {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: #1e3c72;
+                flex-direction: column;
+                padding: 1rem;
+                transform: translateY(-100%);
+                opacity: 0;
+                transition: all 0.3s ease;
+            }
+            
+            .nav-menu.active {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="nav-container">
+            <div class="logo">Aditya Engineering College</div>
+            <nav>
+                <ul class="nav-menu" id="navMenu">
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#programs">Programs</a></li>
+                    <li><a href="#faculty">Faculty</a></li>
+                    <li><a href="#admissions">Admissions</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+                <button class="mobile-menu-toggle" onclick="toggleMobileMenu()">☰</button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h1>Engineering Excellence</h1>
+            <p>Shaping the future through cutting-edge engineering education, innovation, and research. Building technical leaders for tomorrow's world.</p>
+            <div class="cta-buttons">
+                <a href="#admissions" class="btn btn-primary">Apply Now</a>
+                <a href="#programs" class="btn btn-secondary">Our Programs</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="section about">
+        <div class="container">
+            <h2 class="section-title">About Aditya Engineering College</h2>
+            <div class="about-content">
+                <div class="about-text">
+                    <p>Established with a vision to provide world-class engineering education, Aditya Engineering College has been at the forefront of technical excellence for over two decades. Our institution is committed to nurturing innovative minds and developing skilled engineers who can meet the challenges of the rapidly evolving technological landscape.</p>
+                    
+                    <p>We offer state-of-the-art facilities, experienced faculty, and industry-relevant curriculum across multiple engineering disciplines. Our graduates are well-prepared to contribute meaningfully to society and excel in their chosen careers.</p>
+                    
+                    <p>With a strong emphasis on research, innovation, and practical learning, we ensure our students gain both theoretical knowledge and hands-on experience that makes them industry-ready from day one.</p>
+                </div>
+                <div class="about-stats">
+                    <div class="stat-item">
+                        <span class="stat-number">5000+</span>
+                        <span class="stat-label">Students</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">200+</span>
+                        <span class="stat-label">Faculty Members</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">95%</span>
+                        <span class="stat-label">Placement Rate</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">12</span>
+                        <span class="stat-label">Engineering Branches</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Programs Section -->
+    <section id="programs" class="section">
+        <div class="container">
+            <h2 class="section-title">Engineering Programs</h2>
+            <div class="programs-grid">
+                <div class="program-card">
+                    <div class="program-header">
+                        <div class="program-icon">💻</div>
+                        <h3 class="program-title">Computer Science & Engineering</h3>
+                    </div>
+                    <div class="program-content">
+                        <p>Comprehensive program covering software development, algorithms, AI, and emerging technologies.</p>
+                        <ul class="program-features">
+                            <li>Data Structures & Algorithms</li>
+                            <li>Machine Learning & AI</li>
+                            <li>Web & Mobile Development</li>
+                            <li>Cybersecurity</li>
+                            <li>Cloud Computing</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="program-card">
+                    <div class="program-header">
+                        <div class="program-icon">⚡</div>
+                        <h3 class="program-title">Electrical & Electronics Engineering</h3>
+                    </div>
+                    <div class="program-content">
+                        <p>Focus on power systems, electronics, control systems, and renewable energy technologies.</p>
+                        <ul class="program-features">
+                            <li>Power Systems</li>
+                            <li>Control Systems</li>
+                            <li>Digital Electronics</li>
+                            <li>Renewable Energy</li>
+                            <li>IoT Applications</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="program-card">
+                    <div class="program-header">
+                        <div class="program-icon">🏗️</div>
+                        <h3 class="program-title">Civil Engineering</h3>
+                    </div>
+                    <div class="program-content">
+                        <p>Infrastructure development, construction technology, and sustainable building practices.</p>
+                        <ul class="program-features">
+                            <li>Structural Engineering</li>
+                            <li>Transportation Engineering</li>
+                            <li>Environmental Engineering</li>
+                            <li>Geotechnical Engineering</li>
+                            <li>Smart Cities</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="program-card">
+                    <div class="program-header">
+                        <div class="program-icon">🔧</div>
+                        <h3 class="program-title">Mechanical Engineering</h3>
+                    </div>
+                    <div class="program-content">
+                        <p>Design, manufacturing, thermal systems, and advanced materials engineering.</p>
+                        <ul class="program-features">
+                            <li>CAD/CAM</li>
+                            <li>Robotics & Automation</li>
+                            <li>Thermal Engineering</li>
+                            <li>Materials Science</li>
+                            <li>Manufacturing Processes</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="program-card">
+                    <div class="program-header">
+                        <div class="program-icon">🏭</div>
+                        <h3 class="program-title">Chemical Engineering</h3>
+                    </div>
+                    <div class="program-content">
+                        <p>Process engineering, biotechnology, and sustainable chemical processes.</p>
+                        <ul class="program-features">
+                            <li>Process Design</li>
+                            <li>Biotechnology</li>
+                            <li>Environmental Engineering</li>
+                            <li>Petrochemical Engineering</li>
+                            <li>Food Processing</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="program-card">
+                    <div class="program-header">
+                        <div class="program-icon">📡</div>
+                        <h3 class="program-title">Electronics & Communication</h3>
+                    </div>
+                    <div class="program-content">
+                        <p>Communication systems, signal processing, and embedded systems engineering.</p>
+                        <ul class="program-features">
+                            <li>Digital Signal Processing</li>
+                            <li>Embedded Systems</li>
+                            <li>Wireless Communication</li>
+                            <li>VLSI Design</li>
+                            <li>Satellite Communication</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Faculty Section -->
+    <section id="faculty" class="section faculty">
+        <div class="container">
+            <h2 class="section-title">Our Distinguished Faculty</h2>
+            <div class="faculty-grid">
+                <div class="faculty-card">
+                    <div class="faculty-photo">👨‍🏫</div>
+                    <h3 class="faculty-name">Dr. Rajesh Kumar</h3>
+                    <p class="faculty-position">Principal & Professor</p>
+                    <p class="faculty-bio">Ph.D. in Computer Science with 25+ years of experience in academia and research. Specialized in AI and Machine Learning.</p>
+                </div>
+
+                <div class="faculty-card">
+                    <div class="faculty-photo">👩‍🏫</div>
+                    <h3 class="faculty-name">Dr. Priya Sharma</h3>
+                    <p class="faculty-position">Head of CSE Department</p>
+                    <p class="faculty-bio">Expert in Data Science and Software Engineering with numerous publications in international journals.</p>
+                </div>
+
+                <div class="faculty-card">
+                    <div class="faculty-photo">👨‍🔬</div>
+                    <h3 class="faculty-name">Dr. Arun Patel</h3>
+                    <p class="faculty-position">Professor, Mechanical Engineering</p>
+                    <p class="faculty-bio">Research focus on robotics and automation with industry collaboration experience.</p>
+                </div>
+
+                <div class="faculty-card">
+                    <div class="faculty-photo">👩‍💼</div>
+                    <h3 class="faculty-name">Dr. Meera Singh</h3>
+                    <p class="faculty-position">Professor, Electrical Engineering</p>
+                    <p class="faculty-bio">Specialist in renewable energy systems and smart grid technologies.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Admissions Section -->
+    <section id="admissions" class="section admissions">
+        <div class="container">
+            <h2 class="section-title">Admissions</h2>
+            <div class="admissions-content">
+                <div>
+                    <h3>Join Aditya Engineering College</h3>
+                    <p>Take the first step towards a successful engineering career. Our admission process is designed to identify talented and motivated students who are ready to excel in the field of engineering.</p>
+                    
+                    <h4>Admission Requirements:</h4>
+                    <ul style="margin: 1rem 0; padding-left: 2rem;">
+                        <li>12th grade with Physics, Chemistry, and Mathematics</li>
+                        <li>Valid JEE Main/State CET score</li>
+                        <li>Minimum 60% in qualifying examination</li>
+                        <li>Age limit: 17-25 years</li>
+                    </ul>
+                    
+                    <h4>Important Dates:</h4>
+                    <ul style="margin: 1rem 0; padding-left: 2rem;">
+                        <li>Application Start: March 1, 2025</li>
+                        <li>Application Deadline: June 30, 2025</li>
+                        <li>Counseling: July 2025</li>
+                        <li>Classes Begin: August 2025</li>
+                    </ul>
+                </div>
+                
+                <div class="admissions-form">
+                    <h3>Quick Inquiry Form</h3>
+                    <form id="inquiryForm">
+                        <div class="form-group">
+                            <label for="studentName">Full Name</label>
+                            <input type="text" id="studentName" name="studentName" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="email">Email Address</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="phone">Phone Number</label>
+                            <input type="tel" id="phone" name="phone" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="program">Preferred Program</label>
+                            <select id="program" name="program" required>
+                                <option value="">Select Program</option>
+                                <option value="cse">Computer Science & Engineering</option>
+                                <option value="eee">Electrical & Electronics Engineering</option>
+                                <option value="civil">Civil Engineering</option>
+                                <option value="mech">Mechanical Engineering</option>
+                                <option value="chem">Chemical Engineering</option>
+                                <option value="ece">Electronics & Communication</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="message">Message</label>
+                            <textarea id="message" name="message" placeholder="Any questions or additional information..."></textarea>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary" style="width: 100%;">Submit Inquiry</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="section contact">
+        <div class="container">
+            <h2 class="section-title">Contact Us</h2>
+            <div class="contact-content">
+                <div class="contact-item">
+                    <div class="contact-icon">📍</div>
+                    <h3 class="contact-title">Address</h3>
+                    <p class="contact-info">
+                        Aditya Engineering College<br>
+                        Surampalem, Kakinada<br>
+                        Andhra Pradesh - 533437<br>
+                        India
+                    </p>
+                </div>
+                
+                <div class="contact-item">
+                    <div class="contact-icon">📞</div>
+                    <h3 class="contact-title">Phone</h3>
+                    <p class="contact-info">
+                        Admissions: +91-8842-221100<br>
+                        General: +91-8842-221200<br>
+                        Placement: +91-8842-221300
+                    </p>
+                </div>
+                
+                <div class="contact-item">
+                    <div class="contact-icon">✉️</div>
+                    <h3 class="contact-title">Email</h3>
+                    <p class="contact-info">
+                        admissions@adityaengg.edu.in<br>
+                        info@adityaengg.edu.in<br>
+                        placement@adityaengg.edu.in
+                    </p>
+                </div>
+                
+                <div class="contact-item">
+                    <div class="contact-icon">🌐</div>
+                    <h3 class="contact-title">Website</h3>
+                    <p class="contact-info">
+                        www.adityaengg.edu.in<br>
+                        Follow us on social media<br>
+                        for latest updates
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <a href="#about">About Us</a>
+                    <a href="#programs">Academic Programs</a>
+                    <a href="#faculty">Faculty</a>
+                    <a href="#admissions">Admissions</a>
+                    <a href="#contact">Contact</a>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Departments</h3>
+                    <a href="#">Computer Science</a>
+                    <a href="#">Mechanical Engineering</a>
+                    <a href="#">Civil Engineering</a>
+                    <a href="#">Electrical Engineering</a>
+                    <a href="#">Chemical Engineering</a>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Student Resources</h3>
+                    <a href="#">Student Portal</a>
+                    <a href="#">Library</a>
+                    <a href="#">Placement Cell</a>
+                    <a href="#">Hostel Facilities</a>
+                    <a href="#">Student Activities</a>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Connect With Us</h3>
+                    <a href="#">Facebook</a>
+                    <a href="#">Twitter</a>
+                    <a href="#">LinkedIn</a>
+                    <a href="#">Instagram</a>
+                    <a href="#">YouTube</a>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2025 Aditya Engineering College. All rights reserved. | Designed with ❤️ for excellence in engineering education.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Menu Toggle
+        function toggleMobileMenu() {
+            const navMenu = document.getElementById('navMenu');
+            navMenu.classList.toggle('active');
+        }
+
+        // Smooth Scrolling for Navigation Links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+                
+                // Close mobile menu if open
+                const navMenu = document.getElementById('navMenu');
+                navMenu.classList.remove('active');
+            });
+        });
+
+        // Form Submission
+        document.getElementById('inquiryForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Get form data
+            const formData = new FormData(this);
+            const inquiryData = {};
+            
+            for (let [key, value] of formData.entries()) {
+                inquiryData[key] = value;
+            }
+            
+            // Show success message
+            alert('Thank you for your inquiry! We will contact you soon.');
+            
+            // Reset form
+            this.reset();
+            
+            console.log('Inquiry submitted:', inquiryData);
+        });
+
+        // Add scroll effect to header
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('.header');
+            if (window.scrollY > 100) {
+                header.style.background = 'rgba(30, 60, 114, 0.95)';
+                header.style.backdropFilter = 'blur(10px)';
+            } else {
+                header.style.background = 'linear-gradient(135deg, #1e3c72 0%, #2a5298 100%)';
+                header.style.backdropFilter = 'none';
+            }
+        });
+
+        // Animate stats on scroll
+        function animateStats() {
+            const stats = document.querySelectorAll('.stat-number');
+            stats.forEach(stat => {
+                const target = parseInt(stat.textContent.replace(/\D/g, ''));
+                let current = 0;
+                const increment = target / 100;
+                const timer = setInterval(() => {
+                    current += increment;
+                    if (current >= target) {
+                        current = target;
+                        clearInterval(timer);
+                    }
+                    if (stat.textContent.includes('%')) {
+                        stat.textContent = Math.floor(current) + '%';
+                    } else if (stat.textContent.includes('+')) {
+                        stat.textContent = Math.floor(current) + '+';
+                    } else {
+                        stat.textContent = Math.floor(current);
+                    }
+                }, 20);
+            });
+        }
+
+        // Trigger stats animation when section is visible
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    animateStats();
+                    observer.unobserve(entry.target);
+                }
+            });
+        });
+
+        const aboutSection = document.querySelector('.about');
+        if (aboutSection) {
+            observer.observe(aboutSection);
+        }
+    </script>
+</body>
+</html>

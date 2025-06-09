@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bio Data Form</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #2c3e50, #3498db);
+            color: white;
+            text-align: center;
+            padding: 30px;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            font-weight: 300;
+        }
+
+        .header p {
+            opacity: 0.9;
+            font-size: 1.1rem;
+        }
+
+        .form-container {
+            padding: 40px;
+        }
+
+        .form-section {
+            margin-bottom: 40px;
+            padding: 25px;
+            background: #f8f9fa;
+            border-radius: 15px;
+            border-left: 5px solid #3498db;
+            transition: all 0.3s ease;
+        }
+
+        .form-section:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .section-title {
+            color: #2c3e50;
+            font-size: 1.4rem;
+            margin-bottom: 20px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+        }
+
+        .section-title::before {
+            content: '';
+            width: 4px;
+            height: 20px;
+            background: #3498db;
+            margin-right: 10px;
+            border-radius: 2px;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            color: #555;
+            font-weight: 500;
+            margin-bottom: 8px;
+            font-size: 0.95rem;
+        }
+
+        input, select, textarea {
+            padding: 12px 15px;
+            border: 2px solid #e0e6ed;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            background: white;
+        }
+
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: #3498db;
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+            transform: translateY(-1px);
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .photo-upload {
+            text-align: center;
+            padding: 30px;
+            border: 2px dashed #3498db;
+            border-radius: 15px;
+            background: #f8f9fa;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .photo-upload:hover {
+            background: #e3f2fd;
+            border-color: #2980b9;
+        }
+
+        .photo-upload input {
+            display: none;
+        }
+
+        .photo-preview {
+            max-width: 150px;
+            max-height: 150px;
+            border-radius: 50%;
+            margin: 10px auto;
+            display: none;
+        }
+
+        .btn-container {
+            text-align: center;
+            padding: 30px 0;
+        }
+
+        .btn {
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            color: white;
+            padding: 15px 40px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin: 0 10px;
+            box-shadow: 0 5px 15px rgba(52, 152, 219, 0.3);
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(52, 152, 219, 0.4);
+        }
+
+        .btn-secondary {
+            background: linear-gradient(135deg, #95a5a6, #7f8c8d);
+            box-shadow: 0 5px 15px rgba(149, 165, 166, 0.3);
+        }
+
+        .saved-data {
+            display: none;
+            background: #e8f5e8;
+            border: 1px solid #4caf50;
+            border-radius: 15px;
+            padding: 20px;
+            margin-top: 20px;
+        }
+
+        .saved-data h3 {
+            color: #2e7d32;
+            margin-bottom: 15px;
+        }
+
+        .data-item {
+            margin-bottom: 10px;
+            padding: 8px 0;
+            border-bottom: 1px solid #c8e6c9;
+        }
+
+        .data-item:last-child {
+            border-bottom: none;
+        }
+
+        .data-label {
+            font-weight: 600;
+            color: #1b5e20;
+            display: inline-block;
+            width: 150px;
+        }
+
+        @media (max-width: 768px) {
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+            
+            .form-container {
+                padding: 20px;
+            }
+            
+            .header h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📋 Bio Data Form</h1>
+            <p>Complete your profile information</p>
+        </div>
+
+        <div class="form-container">
+            <form id="biodataForm">
+                <!-- Personal Information -->
+                <div class="form-section">
+                    <h2 class="section-title">👤 Personal Information</h2>
+                    
+                    <div class="photo-upload" onclick="document.getElementById('photo').click()">
+                        <input type="file" id="photo" accept="image/*" onchange="previewPhoto(event)">
+                        <img id="photoPreview" class="photo-preview" />
+                        <div id="photoText">
+                            <p>📷 Click to upload photo</p>
+                            <small>JPG, PNG or GIF (Max 5MB)</small>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="fullName">Full Name *</label>
+                            <input type="text" id="fullName" name="fullName" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="dateOfBirth">Date of Birth *</label>
+                            <input type="date" id="dateOfBirth" name="dateOfBirth" required>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="gender">Gender</label>
+                            <select id="gender" name="gender">
+                                <option value="">Select Gender</option>
+                                <option value="male">Male</option>
+                                <option value="female">Female</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="nationality">Nationality</label>
+                            <input type="text" id="nationality" name="nationality">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Contact Information -->
+                <div class="form-section">
+                    <h2 class="section-title">📞 Contact Information</h2>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="email">Email Address *</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">Phone Number *</label>
+                            <input type="tel" id="phone" name="phone" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="address">Address</label>
+                        <textarea id="address" name="address" placeholder="Enter your complete address"></textarea>
+                    </div>
+                </div>
+
+                <!-- Education -->
+                <div class="form-section">
+                    <h2 class="section-title">🎓 Education</h2>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="highestQualification">Highest Qualification</label>
+                            <select id="highestQualification" name="highestQualification">
+                                <option value="">Select Qualification</option>
+                                <option value="highschool">High School</option>
+                                <option value="diploma">Diploma</option>
+                                <option value="bachelor">Bachelor's Degree</option>
+                                <option value="master">Master's Degree</option>
+                                <option value="phd">PhD</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="institution">Institution/University</label>
+                            <input type="text" id="institution" name="institution">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="graduationYear">Graduation Year</label>
+                            <input type="number" id="graduationYear" name="graduationYear" min="1950" max="2030">
+                        </div>
+                        <div class="form-group">
+                            <label for="gpa">GPA/Percentage</label>
+                            <input type="text" id="gpa" name="gpa" placeholder="e.g., 3.8 GPA or 85%">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Professional Information -->
+                <div class="form-section">
+                    <h2 class="section-title">💼 Professional Information</h2>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="currentPosition">Current Position</label>
+                            <input type="text" id="currentPosition" name="currentPosition">
+                        </div>
+                        <div class="form-group">
+                            <label for="company">Company/Organization</label>
+                            <input type="text" id="company" name="company">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="experience">Years of Experience</label>
+                            <select id="experience" name="experience">
+                                <option value="">Select Experience</option>
+                                <option value="0-1">0-1 years</option>
+                                <option value="2-5">2-5 years</option>
+                                <option value="6-10">6-10 years</option>
+                                <option value="11-15">11-15 years</option>
+                                <option value="15+">15+ years</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="skills">Key Skills</label>
+                            <input type="text" id="skills" name="skills" placeholder="e.g., JavaScript, Management, Design">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="bio">Professional Bio</label>
+                        <textarea id="bio" name="bio" placeholder="Brief description of your professional background and goals"></textarea>
+                    </div>
+                </div>
+
+                <div class="btn-container">
+                    <button type="submit" class="btn">💾 Save Bio Data</button>
+                    <button type="button" class="btn btn-secondary" onclick="clearForm()">🗑️ Clear Form</button>
+                </div>
+            </form>
+
+            <div id="savedData" class="saved-data">
+                <h3>✅ Bio Data Saved Successfully!</h3>
+                <div id="dataDisplay"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let savedBioData = {};
+
+        function previewPhoto(event) {
+            const file = event.target.files[0];
+            const preview = document.getElementById('photoPreview');
+            const text = document.getElementById('photoText');
+            
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    preview.src = e.target.result;
+                    preview.style.display = 'block';
+                    text.style.display = 'none';
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        document.getElementById('biodataForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(this);
+            savedBioData = {};
+            
+            for (let [key, value] of formData.entries()) {
+                if (value.trim() !== '') {
+                    savedBioData[key] = value;
+                }
+            }
+            
+            displaySavedData();
+            
+            // Show success message
+            document.getElementById('savedData').style.display = 'block';
+            document.getElementById('savedData').scrollIntoView({ behavior: 'smooth' });
+        });
+
+        function displaySavedData() {
+            const display = document.getElementById('dataDisplay');
+            let html = '';
+            
+            const fieldLabels = {
+                fullName: 'Full Name',
+                dateOfBirth: 'Date of Birth',
+                gender: 'Gender',
+                nationality: 'Nationality',
+                email: 'Email',
+                phone: 'Phone',
+                address: 'Address',
+                highestQualification: 'Highest Qualification',
+                institution: 'Institution',
+                graduationYear: 'Graduation Year',
+                gpa: 'GPA/Percentage',
+                currentPosition: 'Current Position',
+                company: 'Company',
+                experience: 'Experience',
+                skills: 'Skills',
+                bio: 'Bio'
+            };
+            
+            for (let [key, value] of Object.entries(savedBioData)) {
+                if (key !== 'photo' && value) {
+                    html += `
+                        <div class="data-item">
+                            <span class="data-label">${fieldLabels[key] || key}:</span>
+                            <span>${value}</span>
+                        </div>
+                    `;
+                }
+            }
+            
+            display.innerHTML = html;
+        }
+
+        function clearForm() {
+            if (confirm('Are you sure you want to clear all form data?')) {
+                document.getElementById('biodataForm').reset();
+                document.getElementById('photoPreview').style.display = 'none';
+                document.getElementById('photoText').style.display = 'block';
+                document.getElementById('savedData').style.display = 'none';
+                savedBioData = {};
+            }
+        }
+
+        // Add smooth animations on form focus
+        document.querySelectorAll('input, select, textarea').forEach(element => {
+            element.addEventListener('focus', function() {
+                this.parentElement.style.transform = 'scale(1.02)';
+                this.parentElement.style.transition = 'transform 0.2s ease';
+            });
+            
+            element.addEventListener('blur', function() {
+                this.parentElement.style.transform = 'scale(1)';
+            });
+        });
+    </script>
+</body>
+</html>
