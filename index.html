@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aditya Engineering College</title>
+    <title>Anganwadi - Children Data Management</title>
     <style>
         * {
             margin: 0;
@@ -13,996 +13,639 @@
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
-            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
         }
 
-        /* Header */
-        .header {
-            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
-            color: white;
-            padding: 1rem 0;
-            position: fixed;
-            width: 100%;
+        .navbar {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1rem 2rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            position: sticky;
             top: 0;
-            z-index: 1000;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            z-index: 100;
         }
 
         .nav-container {
-            max-width: 1200px;
-            margin: 0 auto;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 0 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .teacher-display {
+            background: rgba(102, 126, 234, 0.1);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            color: #667eea;
+            font-weight: 600;
         }
 
         .logo {
             font-size: 1.8rem;
             font-weight: bold;
-            display: flex;
-            align-items: center;
+            color: #667eea;
+            text-decoration: none;
         }
 
-        .logo::before {
-            content: "🎓";
-            margin-right: 10px;
-            font-size: 2rem;
-        }
-
-        .nav-menu {
+        .nav-links {
             display: flex;
             list-style: none;
             gap: 2rem;
         }
 
-        .nav-menu a {
-            color: white;
+        .nav-links a {
             text-decoration: none;
+            color: #333;
             font-weight: 500;
             transition: all 0.3s ease;
             padding: 0.5rem 1rem;
             border-radius: 25px;
         }
 
-        .nav-menu a:hover {
-            background: rgba(255,255,255,0.2);
+        .nav-links a:hover,
+        .nav-links a.active {
+            background: #667eea;
+            color: white;
             transform: translateY(-2px);
-        }
-
-        /* Hero Section */
-        .hero {
-            background: linear-gradient(rgba(30,60,114,0.8), rgba(42,82,152,0.8)), url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600"><rect fill="%23f0f8ff" width="1200" height="600"/><circle fill="%23e6f3ff" cx="200" cy="150" r="100"/><circle fill="%23d9edff" cx="800" cy="400" r="80"/><circle fill="%23cce7ff" cx="1000" cy="200" r="120"/></svg>');
-            height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            color: white;
-            background-size: cover;
-            background-position: center;
-        }
-
-        .hero-content {
-            max-width: 800px;
-            padding: 2rem;
-        }
-
-        .hero h1 {
-            font-size: 3.5rem;
-            margin-bottom: 1rem;
-            font-weight: 300;
-            animation: fadeInUp 1s ease-out;
-        }
-
-        .hero p {
-            font-size: 1.3rem;
-            margin-bottom: 2rem;
-            opacity: 0.9;
-            animation: fadeInUp 1s ease-out 0.3s both;
-        }
-
-        .cta-buttons {
-            display: flex;
-            gap: 1rem;
-            justify-content: center;
-            flex-wrap: wrap;
-            animation: fadeInUp 1s ease-out 0.6s both;
-        }
-
-        .btn {
-            padding: 15px 30px;
-            border: none;
-            border-radius: 50px;
-            font-size: 1.1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-decoration: none;
-            display: inline-block;
-        }
-
-        .btn-primary {
-            background: linear-gradient(45deg, #ff6b6b, #ff8e8e);
-            color: white;
-            box-shadow: 0 5px 15px rgba(255,107,107,0.4);
-        }
-
-        .btn-secondary {
-            background: transparent;
-            color: white;
-            border: 2px solid white;
-        }
-
-        .btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-        }
-
-        /* Sections */
-        .section {
-            padding: 80px 0;
         }
 
         .container {
             max-width: 1200px;
-            margin: 0 auto;
+            margin: 2rem auto;
             padding: 0 2rem;
         }
 
-        .section-title {
+        .page {
+            display: none;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            margin-bottom: 2rem;
+        }
+
+        .page.active {
+            display: block;
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        h1, h2 {
+            color: #333;
+            margin-bottom: 1.5rem;
             text-align: center;
-            font-size: 2.5rem;
-            margin-bottom: 3rem;
-            color: #2c3e50;
-            position: relative;
         }
 
-        .section-title::after {
-            content: '';
-            position: absolute;
-            bottom: -10px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 80px;
-            height: 4px;
-            background: linear-gradient(45deg, #3498db, #2980b9);
-            border-radius: 2px;
-        }
-
-        /* About Section */
-        .about {
-            background: #f8f9fa;
-        }
-
-        .about-content {
+        .form-grid {
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 4rem;
-            align-items: center;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: #555;
+        }
+
+        input, select, textarea {
+            padding: 0.75rem;
+            border: 2px solid #e1e5e9;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            background: rgba(255, 255, 255, 0.8);
+        }
+
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: #667eea;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.2);
+        }
+
+        .btn {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 0.75rem 2rem;
+            border-radius: 25px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin: 0.5rem;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+        }
+
+        .btn-secondary {
+            background: linear-gradient(45deg, #6c757d, #495057);
+        }
+
+        .children-list {
             margin-top: 2rem;
         }
 
-        .about-text {
-            font-size: 1.1rem;
-            line-height: 1.8;
+        .child-card {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            border-left: 4px solid #667eea;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
         }
 
-        .about-stats {
+        .child-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .child-info {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 2rem;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
         }
 
-        .stat-item {
+        .info-item {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .info-label {
+            font-weight: 600;
+            color: #667eea;
+            font-size: 0.9rem;
+        }
+
+        .info-value {
+            color: #333;
+            font-size: 1rem;
+        }
+
+        .welcome-section {
             text-align: center;
-            padding: 2rem;
-            background: white;
-            border-radius: 15px;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
-            transition: transform 0.3s ease;
+            padding: 3rem 0;
         }
 
-        .stat-item:hover {
-            transform: translateY(-5px);
+        .welcome-section h1 {
+            font-size: 3rem;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1rem;
+        }
+
+        .welcome-section p {
+            font-size: 1.2rem;
+            color: #666;
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .stat-card {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 1.5rem;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
         }
 
         .stat-number {
-            font-size: 2.5rem;
+            font-size: 2rem;
             font-weight: bold;
-            color: #3498db;
-            display: block;
+            color: #667eea;
         }
 
         .stat-label {
-            font-size: 1rem;
             color: #666;
             margin-top: 0.5rem;
         }
 
-        /* Programs Section */
-        .programs-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin-top: 3rem;
-        }
-
-        .program-card {
-            background: white;
-            border-radius: 15px;
-            overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            transition: all 0.3s ease;
-        }
-
-        .program-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
-        }
-
-        .program-header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 2rem;
-            text-align: center;
-        }
-
-        .program-icon {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-        }
-
-        .program-title {
-            font-size: 1.5rem;
-            font-weight: 600;
-        }
-
-        .program-content {
-            padding: 2rem;
-        }
-
-        .program-features {
-            list-style: none;
-            margin: 1rem 0;
-        }
-
-        .program-features li {
-            padding: 0.5rem 0;
-            border-bottom: 1px solid #eee;
-        }
-
-        .program-features li::before {
-            content: "✓";
-            color: #27ae60;
-            font-weight: bold;
-            margin-right: 10px;
-        }
-
-        /* Faculty Section */
-        .faculty {
-            background: #f8f9fa;
-        }
-
-        .faculty-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-            margin-top: 3rem;
-        }
-
-        .faculty-card {
-            background: white;
-            border-radius: 15px;
-            padding: 2rem;
-            text-align: center;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
-            transition: transform 0.3s ease;
-        }
-
-        .faculty-card:hover {
-            transform: translateY(-5px);
-        }
-
-        .faculty-photo {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            margin: 0 auto 1rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 3rem;
-            color: white;
-        }
-
-        .faculty-name {
-            font-size: 1.3rem;
-            font-weight: 600;
-            margin-bottom: 0.5rem;
-            color: #2c3e50;
-        }
-
-        .faculty-position {
-            color: #3498db;
-            font-weight: 500;
-            margin-bottom: 1rem;
-        }
-
-        .faculty-bio {
-            font-size: 0.9rem;
-            color: #666;
-            line-height: 1.6;
-        }
-
-        /* Admissions Section */
-        .admissions {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-        }
-
-        .admissions-content {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 4rem;
-            align-items: center;
-        }
-
-        .admissions-form {
-            background: rgba(255,255,255,0.1);
-            padding: 2rem;
-            border-radius: 15px;
-            backdrop-filter: blur(10px);
-        }
-
-        .form-group {
-            margin-bottom: 1.5rem;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 0.5rem;
-            font-weight: 500;
-        }
-
-        .form-group input,
-        .form-group select,
-        .form-group textarea {
-            width: 100%;
-            padding: 12px 15px;
-            border: none;
-            border-radius: 8px;
-            font-size: 1rem;
-            background: rgba(255,255,255,0.9);
-        }
-
-        .form-group textarea {
-            height: 100px;
-            resize: vertical;
-        }
-
-        /* Contact Section */
-        .contact {
-            background: #2c3e50;
-            color: white;
-        }
-
-        .contact-content {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 3rem;
-        }
-
-        .contact-item {
-            text-align: center;
-        }
-
-        .contact-icon {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-            color: #3498db;
-        }
-
-        .contact-title {
-            font-size: 1.3rem;
-            font-weight: 600;
-            margin-bottom: 1rem;
-        }
-
-        .contact-info {
-            font-size: 1rem;
-            opacity: 0.9;
-        }
-
-        /* Footer */
-        .footer {
-            background: #1a1a1a;
-            color: white;
-            text-align: center;
-            padding: 2rem 0;
-        }
-
-        .footer-content {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-            margin-bottom: 2rem;
-        }
-
-        .footer-section h3 {
-            margin-bottom: 1rem;
-            color: #3498db;
-        }
-
-        .footer-section a {
-            color: #ccc;
-            text-decoration: none;
-            display: block;
-            margin-bottom: 0.5rem;
-            transition: color 0.3s ease;
-        }
-
-        .footer-section a:hover {
-            color: #3498db;
-        }
-
-        .footer-bottom {
-            border-top: 1px solid #333;
-            padding-top: 1rem;
-            color: #999;
-        }
-
-        /* Animations */
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        /* Responsive Design */
         @media (max-width: 768px) {
-            .nav-menu {
-                display: none;
+            .nav-right {
+                flex-direction: column;
+                gap: 1rem;
             }
             
-            .hero h1 {
-                font-size: 2.5rem;
+            .nav-links {
+                gap: 1rem;
             }
             
-            .about-content,
-            .admissions-content {
+            .teacher-display {
+                font-size: 0.8rem;
+                padding: 0.3rem 0.8rem;
+            }
+            
+            .form-grid {
                 grid-template-columns: 1fr;
             }
             
-            .cta-buttons {
-                flex-direction: column;
-                align-items: center;
-            }
-            
-            .section {
-                padding: 60px 0;
-            }
-        }
-
-        /* Smooth Scrolling */
-        html {
-            scroll-behavior: smooth;
-        }
-
-        /* Mobile Menu Toggle */
-        .mobile-menu-toggle {
-            display: none;
-            background: none;
-            border: none;
-            color: white;
-            font-size: 1.5rem;
-            cursor: pointer;
-        }
-
-        @media (max-width: 768px) {
-            .mobile-menu-toggle {
-                display: block;
-            }
-            
-            .nav-menu {
-                position: absolute;
-                top: 100%;
-                left: 0;
-                width: 100%;
-                background: #1e3c72;
-                flex-direction: column;
-                padding: 1rem;
-                transform: translateY(-100%);
-                opacity: 0;
-                transition: all 0.3s ease;
-            }
-            
-            .nav-menu.active {
-                transform: translateY(0);
-                opacity: 1;
+            .container {
+                padding: 0 1rem;
             }
         }
     </style>
 </head>
 <body>
-    <!-- Header -->
-    <header class="header">
+    <nav class="navbar">
         <div class="nav-container">
-            <div class="logo">Aditya Engineering College</div>
-            <nav>
-                <ul class="nav-menu" id="navMenu">
-                    <li><a href="#home">Home</a></li>
-                    <li><a href="#about">About</a></li>
-                    <li><a href="#programs">Programs</a></li>
-                    <li><a href="#faculty">Faculty</a></li>
-                    <li><a href="#admissions">Admissions</a></li>
-                    <li><a href="#contact">Contact</a></li>
+            <a href="#" class="logo">Anganwadi</a>
+            <div class="nav-right">
+                <div class="teacher-display" id="navTeacherDisplay">Teacher: Not Set</div>
+                <ul class="nav-links">
+                    <li><a href="#" onclick="showPage('home')" class="nav-link active">HOME</a></li>
+                    <li><a href="#" onclick="showPage('login')" class="nav-link">LOGIN</a></li>
+                    <li><a href="#" onclick="showPage('contact')" class="nav-link">CONTACT</a></li>
                 </ul>
-                <button class="mobile-menu-toggle" onclick="toggleMobileMenu()">☰</button>
-            </nav>
-        </div>
-    </header>
-
-    <!-- Hero Section -->
-    <section id="home" class="hero">
-        <div class="hero-content">
-            <h1>Engineering Excellence</h1>
-            <p>Shaping the future through cutting-edge engineering education, innovation, and research. Building technical leaders for tomorrow's world.</p>
-            <div class="cta-buttons">
-                <a href="#admissions" class="btn btn-primary">Apply Now</a>
-                <a href="#programs" class="btn btn-secondary">Our Programs</a>
             </div>
         </div>
-    </section>
+    </nav>
 
-    <!-- About Section -->
-    <section id="about" class="section about">
-        <div class="container">
-            <h2 class="section-title">About Aditya Engineering College</h2>
-            <div class="about-content">
-                <div class="about-text">
-                    <p>Established with a vision to provide world-class engineering education, Aditya Engineering College has been at the forefront of technical excellence for over two decades. Our institution is committed to nurturing innovative minds and developing skilled engineers who can meet the challenges of the rapidly evolving technological landscape.</p>
-                    
-                    <p>We offer state-of-the-art facilities, experienced faculty, and industry-relevant curriculum across multiple engineering disciplines. Our graduates are well-prepared to contribute meaningfully to society and excel in their chosen careers.</p>
-                    
-                    <p>With a strong emphasis on research, innovation, and practical learning, we ensure our students gain both theoretical knowledge and hands-on experience that makes them industry-ready from day one.</p>
-                </div>
-                <div class="about-stats">
-                    <div class="stat-item">
-                        <span class="stat-number">5000+</span>
-                        <span class="stat-label">Students</span>
-                    </div>
-                    <div class="stat-item">
-                        <span class="stat-number">200+</span>
-                        <span class="stat-label">Faculty Members</span>
-                    </div>
-                    <div class="stat-item">
-                        <span class="stat-number">95%</span>
-                        <span class="stat-label">Placement Rate</span>
-                    </div>
-                    <div class="stat-item">
-                        <span class="stat-number">12</span>
-                        <span class="stat-label">Engineering Branches</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Programs Section -->
-    <section id="programs" class="section">
-        <div class="container">
-            <h2 class="section-title">Engineering Programs</h2>
-            <div class="programs-grid">
-                <div class="program-card">
-                    <div class="program-header">
-                        <div class="program-icon">💻</div>
-                        <h3 class="program-title">Computer Science & Engineering</h3>
-                    </div>
-                    <div class="program-content">
-                        <p>Comprehensive program covering software development, algorithms, AI, and emerging technologies.</p>
-                        <ul class="program-features">
-                            <li>Data Structures & Algorithms</li>
-                            <li>Machine Learning & AI</li>
-                            <li>Web & Mobile Development</li>
-                            <li>Cybersecurity</li>
-                            <li>Cloud Computing</li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div class="program-card">
-                    <div class="program-header">
-                        <div class="program-icon">⚡</div>
-                        <h3 class="program-title">Electrical & Electronics Engineering</h3>
-                    </div>
-                    <div class="program-content">
-                        <p>Focus on power systems, electronics, control systems, and renewable energy technologies.</p>
-                        <ul class="program-features">
-                            <li>Power Systems</li>
-                            <li>Control Systems</li>
-                            <li>Digital Electronics</li>
-                            <li>Renewable Energy</li>
-                            <li>IoT Applications</li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div class="program-card">
-                    <div class="program-header">
-                        <div class="program-icon">🏗️</div>
-                        <h3 class="program-title">Civil Engineering</h3>
-                    </div>
-                    <div class="program-content">
-                        <p>Infrastructure development, construction technology, and sustainable building practices.</p>
-                        <ul class="program-features">
-                            <li>Structural Engineering</li>
-                            <li>Transportation Engineering</li>
-                            <li>Environmental Engineering</li>
-                            <li>Geotechnical Engineering</li>
-                            <li>Smart Cities</li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div class="program-card">
-                    <div class="program-header">
-                        <div class="program-icon">🔧</div>
-                        <h3 class="program-title">Mechanical Engineering</h3>
-                    </div>
-                    <div class="program-content">
-                        <p>Design, manufacturing, thermal systems, and advanced materials engineering.</p>
-                        <ul class="program-features">
-                            <li>CAD/CAM</li>
-                            <li>Robotics & Automation</li>
-                            <li>Thermal Engineering</li>
-                            <li>Materials Science</li>
-                            <li>Manufacturing Processes</li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div class="program-card">
-                    <div class="program-header">
-                        <div class="program-icon">🏭</div>
-                        <h3 class="program-title">Chemical Engineering</h3>
-                    </div>
-                    <div class="program-content">
-                        <p>Process engineering, biotechnology, and sustainable chemical processes.</p>
-                        <ul class="program-features">
-                            <li>Process Design</li>
-                            <li>Biotechnology</li>
-                            <li>Environmental Engineering</li>
-                            <li>Petrochemical Engineering</li>
-                            <li>Food Processing</li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div class="program-card">
-                    <div class="program-header">
-                        <div class="program-icon">📡</div>
-                        <h3 class="program-title">Electronics & Communication</h3>
-                    </div>
-                    <div class="program-content">
-                        <p>Communication systems, signal processing, and embedded systems engineering.</p>
-                        <ul class="program-features">
-                            <li>Digital Signal Processing</li>
-                            <li>Embedded Systems</li>
-                            <li>Wireless Communication</li>
-                            <li>VLSI Design</li>
-                            <li>Satellite Communication</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Faculty Section -->
-    <section id="faculty" class="section faculty">
-        <div class="container">
-            <h2 class="section-title">Our Distinguished Faculty</h2>
-            <div class="faculty-grid">
-                <div class="faculty-card">
-                    <div class="faculty-photo">👨‍🏫</div>
-                    <h3 class="faculty-name">Dr. Rajesh Kumar</h3>
-                    <p class="faculty-position">Principal & Professor</p>
-                    <p class="faculty-bio">Ph.D. in Computer Science with 25+ years of experience in academia and research. Specialized in AI and Machine Learning.</p>
-                </div>
-
-                <div class="faculty-card">
-                    <div class="faculty-photo">👩‍🏫</div>
-                    <h3 class="faculty-name">Dr. Priya Sharma</h3>
-                    <p class="faculty-position">Head of CSE Department</p>
-                    <p class="faculty-bio">Expert in Data Science and Software Engineering with numerous publications in international journals.</p>
-                </div>
-
-                <div class="faculty-card">
-                    <div class="faculty-photo">👨‍🔬</div>
-                    <h3 class="faculty-name">Dr. Arun Patel</h3>
-                    <p class="faculty-position">Professor, Mechanical Engineering</p>
-                    <p class="faculty-bio">Research focus on robotics and automation with industry collaboration experience.</p>
-                </div>
-
-                <div class="faculty-card">
-                    <div class="faculty-photo">👩‍💼</div>
-                    <h3 class="faculty-name">Dr. Meera Singh</h3>
-                    <p class="faculty-position">Professor, Electrical Engineering</p>
-                    <p class="faculty-bio">Specialist in renewable energy systems and smart grid technologies.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Admissions Section -->
-    <section id="admissions" class="section admissions">
-        <div class="container">
-            <h2 class="section-title">Admissions</h2>
-            <div class="admissions-content">
-                <div>
-                    <h3>Join Aditya Engineering College</h3>
-                    <p>Take the first step towards a successful engineering career. Our admission process is designed to identify talented and motivated students who are ready to excel in the field of engineering.</p>
-                    
-                    <h4>Admission Requirements:</h4>
-                    <ul style="margin: 1rem 0; padding-left: 2rem;">
-                        <li>12th grade with Physics, Chemistry, and Mathematics</li>
-                        <li>Valid JEE Main/State CET score</li>
-                        <li>Minimum 60% in qualifying examination</li>
-                        <li>Age limit: 17-25 years</li>
-                    </ul>
-                    
-                    <h4>Important Dates:</h4>
-                    <ul style="margin: 1rem 0; padding-left: 2rem;">
-                        <li>Application Start: March 1, 2025</li>
-                        <li>Application Deadline: June 30, 2025</li>
-                        <li>Counseling: July 2025</li>
-                        <li>Classes Begin: August 2025</li>
-                    </ul>
-                </div>
+    <div class="container">
+        <!-- HOME PAGE -->
+        <div id="home" class="page active">
+            <div class="welcome-section">
+                <h1>Welcome to Anganwadi</h1>
+                <p>Comprehensive children data management system for tracking growth, health, and development of our precious little ones.</p>
                 
-                <div class="admissions-form">
-                    <h3>Quick Inquiry Form</h3>
-                    <form id="inquiryForm">
-                        <div class="form-group">
-                            <label for="studentName">Full Name</label>
-                            <input type="text" id="studentName" name="studentName" required>
+                <div class="teacher-info" style="background: rgba(255, 255, 255, 0.9); border-radius: 12px; padding: 1.5rem; margin: 2rem auto; max-width: 500px; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);">
+                    <h3 style="color: #667eea; margin-bottom: 1rem; text-align: center;">Anganwadi Teacher Information</h3>
+                    <form id="teacherForm" style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; align-items: end;">
+                        <div class="form-group" style="margin: 0;">
+                            <label for="teacherName" style="font-size: 0.9rem;">Teacher Name</label>
+                            <input type="text" id="teacherName" placeholder="Enter teacher name" style="padding: 0.5rem;">
                         </div>
-                        
-                        <div class="form-group">
-                            <label for="email">Email Address</label>
-                            <input type="email" id="email" name="email" required>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="phone">Phone Number</label>
-                            <input type="tel" id="phone" name="phone" required>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="program">Preferred Program</label>
-                            <select id="program" name="program" required>
-                                <option value="">Select Program</option>
-                                <option value="cse">Computer Science & Engineering</option>
-                                <option value="eee">Electrical & Electronics Engineering</option>
-                                <option value="civil">Civil Engineering</option>
-                                <option value="mech">Mechanical Engineering</option>
-                                <option value="chem">Chemical Engineering</option>
-                                <option value="ece">Electronics & Communication</option>
-                            </select>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="message">Message</label>
-                            <textarea id="message" name="message" placeholder="Any questions or additional information..."></textarea>
-                        </div>
-                        
-                        <button type="submit" class="btn btn-primary" style="width: 100%;">Submit Inquiry</button>
+                        <button type="button" onclick="setTeacherName()" class="btn" style="margin: 0; padding: 0.5rem 1rem; font-size: 0.9rem;">Set Name</button>
                     </form>
+                    <div id="currentTeacher" style="text-align: center; margin-top: 1rem; font-weight: 600; color: #333;">
+                        Current Teacher: <span id="displayTeacherName" style="color: #667eea;">Not Set</span>
+                    </div>
                 </div>
             </div>
-        </div>
-    </section>
 
-    <!-- Contact Section -->
-    <section id="contact" class="section contact">
-        <div class="container">
-            <h2 class="section-title">Contact Us</h2>
-            <div class="contact-content">
-                <div class="contact-item">
-                    <div class="contact-icon">📍</div>
-                    <h3 class="contact-title">Address</h3>
-                    <p class="contact-info">
-                        Aditya Engineering College<br>
-                        Surampalem, Kakinada<br>
-                        Andhra Pradesh - 533437<br>
-                        India
-                    </p>
+            <h2>Children Data Entry</h2>
+            <form id="childForm">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="childName">Child Name *</label>
+                        <input type="text" id="childName" name="childName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="dateOfBirth">Date of Birth *</label>
+                        <input type="date" id="dateOfBirth" name="dateOfBirth" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="gender">Gender *</label>
+                        <select id="gender" name="gender" required>
+                            <option value="">Select Gender</option>
+                            <option value="Male">Male</option>
+                            <option value="Female">Female</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="caste">Caste</label>
+                        <select id="caste" name="caste">
+                            <option value="">Select Caste</option>
+                            <option value="SC">SC (Scheduled Caste)</option>
+                            <option value="ST">ST (Scheduled Tribe)</option>
+                            <option value="OBC">OBC (Other Backward Class)</option>
+                            <option value="General">General</option>
+                            <option value="EWS">EWS (Economically Weaker Section)</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="fatherName">Father's Name</label>
+                        <input type="text" id="fatherName" name="fatherName">
+                    </div>
+                    <div class="form-group">
+                        <label for="motherName">Mother's Name</label>
+                        <input type="text" id="motherName" name="motherName">
+                    </div>
+                    <div class="form-group">
+                        <label for="address">Address</label>
+                        <textarea id="address" name="address" rows="3"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="phoneNumber">Phone Number</label>
+                        <input type="tel" id="phoneNumber" name="phoneNumber">
+                    </div>
+                    <div class="form-group">
+                        <label for="aadharNumber">Aadhar Number</label>
+                        <input type="text" id="aadharNumber" name="aadharNumber" maxlength="12" pattern="[0-9]{12}" placeholder="Enter 12-digit Aadhar number">
+                    </div>
+                    <div class="form-group">
+                        <label for="weight">Weight (kg)</label>
+                        <input type="number" id="weight" name="weight" step="0.1">
+                    </div>
+                    <div class="form-group">
+                        <label for="height">Height (cm)</label>
+                        <input type="number" id="height" name="height" step="0.1">
+                    </div>
+                    <div class="form-group">
+                        <label for="bloodGroup">Blood Group</label>
+                        <select id="bloodGroup" name="bloodGroup">
+                            <option value="">Select Blood Group</option>
+                            <option value="A+">A+</option>
+                            <option value="A-">A-</option>
+                            <option value="B+">B+</option>
+                            <option value="B-">B-</option>
+                            <option value="AB+">AB+</option>
+                            <option value="AB-">AB-</option>
+                            <option value="O+">O+</option>
+                            <option value="O-">O-</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="admissionDate">Admission Date</label>
+                        <input type="date" id="admissionDate" name="admissionDate">
+                    </div>
+                    <div class="form-group">
+                        <label for="healthStatus">Health Status</label>
+                        <select id="healthStatus" name="healthStatus">
+                            <option value="">Select Status</option>
+                            <option value="Good">Good</option>
+                            <option value="Fair">Fair</option>
+                            <option value="Needs Attention">Needs Attention</option>
+                        </select>
+                    </div>
                 </div>
-                
-                <div class="contact-item">
-                    <div class="contact-icon">📞</div>
-                    <h3 class="contact-title">Phone</h3>
-                    <p class="contact-info">
-                        Admissions: +91-8842-221100<br>
-                        General: +91-8842-221200<br>
-                        Placement: +91-8842-221300
-                    </p>
+                <div style="text-align: center;">
+                    <button type="submit" class="btn">Add Child Record</button>
+                    <button type="reset" class="btn btn-secondary">Clear Form</button>
                 </div>
-                
-                <div class="contact-item">
-                    <div class="contact-icon">✉️</div>
-                    <h3 class="contact-title">Email</h3>
-                    <p class="contact-info">
-                        admissions@adityaengg.edu.in<br>
-                        info@adityaengg.edu.in<br>
-                        placement@adityaengg.edu.in
-                    </p>
-                </div>
-                
-                <div class="contact-item">
-                    <div class="contact-icon">🌐</div>
-                    <h3 class="contact-title">Website</h3>
-                    <p class="contact-info">
-                        www.adityaengg.edu.in<br>
-                        Follow us on social media<br>
-                        for latest updates
-                    </p>
-                </div>
-            </div>
-        </div>
-    </section>
+            </form>
 
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <h3>Quick Links</h3>
-                    <a href="#about">About Us</a>
-                    <a href="#programs">Academic Programs</a>
-                    <a href="#faculty">Faculty</a>
-                    <a href="#admissions">Admissions</a>
-                    <a href="#contact">Contact</a>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number" id="totalChildren">0</div>
+                    <div class="stat-label">Total Children</div>
                 </div>
-                
-                <div class="footer-section">
-                    <h3>Departments</h3>
-                    <a href="#">Computer Science</a>
-                    <a href="#">Mechanical Engineering</a>
-                    <a href="#">Civil Engineering</a>
-                    <a href="#">Electrical Engineering</a>
-                    <a href="#">Chemical Engineering</a>
+                <div class="stat-card">
+                    <div class="stat-number" id="maleChildren">0</div>
+                    <div class="stat-label">Male</div>
                 </div>
-                
-                <div class="footer-section">
-                    <h3>Student Resources</h3>
-                    <a href="#">Student Portal</a>
-                    <a href="#">Library</a>
-                    <a href="#">Placement Cell</a>
-                    <a href="#">Hostel Facilities</a>
-                    <a href="#">Student Activities</a>
-                </div>
-                
-                <div class="footer-section">
-                    <h3>Connect With Us</h3>
-                    <a href="#">Facebook</a>
-                    <a href="#">Twitter</a>
-                    <a href="#">LinkedIn</a>
-                    <a href="#">Instagram</a>
-                    <a href="#">YouTube</a>
+                <div class="stat-card">
+                    <div class="stat-number" id="femaleChildren">0</div>
+                    <div class="stat-label">Female</div>
                 </div>
             </div>
-            
-            <div class="footer-bottom">
-                <p>&copy; 2025 Aditya Engineering College. All rights reserved. | Designed with ❤️ for excellence in engineering education.</p>
+
+            <div class="children-list">
+                <h2>Registered Children</h2>
+                <div id="childrenContainer"></div>
             </div>
         </div>
-    </footer>
+
+        <!-- LOGIN PAGE -->
+        <div id="login" class="page">
+            <h1>Staff Login</h1>
+            <form id="loginForm" style="max-width: 400px; margin: 0 auto;">
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" id="username" name="username" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" required>
+                </div>
+                <div style="text-align: center; margin-top: 2rem;">
+                    <button type="submit" class="btn">Login</button>
+                </div>
+            </form>
+        </div>
+
+        <!-- CONTACT PAGE -->
+        <div id="contact" class="page">
+            <h1>Contact Us</h1>
+            <div style="max-width: 600px; margin: 0 auto;">
+                <div class="child-card">
+                    <h3 style="color: #667eea; margin-bottom: 1rem;">Anganwadi Center Information</h3>
+                    <div class="info-item">
+                        <span class="info-label">Address:</span>
+                        <span class="info-value">11-87, Rajeev Nagar, Tapeswaram, DR.B.R. AMBEDKAR KONASEEMA District, Andhra Pradesh</span>
+                    </div>
+                    <div class="info-item" style="margin-top: 1rem;">
+                        <span class="info-label">Phone:</span>
+                        <span class="info-value">+91 94949 57196</span>
+                    </div>
+                    <div class="info-item" style="margin-top: 1rem;">
+                        <span class="info-label">Email:</span>
+                        <span class="info-value">cpkumar666@gmail.com</span>
+                    </div>
+                    <div class="info-item" style="margin-top: 1rem;">
+                        <span class="info-label">Working Hours:</span>
+                        <span class="info-value">Monday - Saturday: 8:00 AM - 4:00 PM</span>
+                    </div>
+                </div>
+
+                <form id="contactForm" style="margin-top: 2rem;">
+                    <h3 style="color: #667eea; margin-bottom: 1rem;">Send us a Message</h3>
+                    <div class="form-group">
+                        <label for="contactName">Your Name</label>
+                        <input type="text" id="contactName" name="contactName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="contactEmail">Email</label>
+                        <input type="email" id="contactEmail" name="contactEmail" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="contactMessage">Message</label>
+                        <textarea id="contactMessage" name="contactMessage" rows="5" required></textarea>
+                    </div>
+                    <div style="text-align: center;">
+                        <button type="submit" class="btn">Send Message</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 
     <script>
-        // Mobile Menu Toggle
-        function toggleMobileMenu() {
-            const navMenu = document.getElementById('navMenu');
-            navMenu.classList.toggle('active');
+        let childrenData = [];
+        let currentTeacherName = '';
+
+        function setTeacherName() {
+            const teacherInput = document.getElementById('teacherName');
+            const teacherName = teacherInput.value.trim();
+            
+            if (teacherName) {
+                currentTeacherName = teacherName;
+                document.getElementById('displayTeacherName').textContent = teacherName;
+                document.getElementById('navTeacherDisplay').textContent = 'Teacher: ' + teacherName;
+                teacherInput.value = '';
+                alert('Teacher name set successfully!');
+            } else {
+                alert('Please enter a teacher name.');
+            }
         }
 
-        // Smooth Scrolling for Navigation Links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
-                
-                // Close mobile menu if open
-                const navMenu = document.getElementById('navMenu');
-                navMenu.classList.remove('active');
-            });
-        });
+        function showPage(pageId) {
+            // Hide all pages
+            const pages = document.querySelectorAll('.page');
+            pages.forEach(page => page.classList.remove('active'));
+            
+            // Remove active class from all nav links
+            const navLinks = document.querySelectorAll('.nav-link');
+            navLinks.forEach(link => link.classList.remove('active'));
+            
+            // Show selected page
+            document.getElementById(pageId).classList.add('active');
+            
+            // Add active class to clicked nav link
+            event.target.classList.add('active');
+        }
 
-        // Form Submission
-        document.getElementById('inquiryForm').addEventListener('submit', function(e) {
+        function calculateAge(birthDate) {
+            const today = new Date();
+            const birth = new Date(birthDate);
+            let age = today.getFullYear() - birth.getFullYear();
+            const monthDiff = today.getMonth() - birth.getMonth();
+            
+            if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birth.getDate())) {
+                age--;
+            }
+            return age;
+        }
+
+        function updateStats() {
+            const total = childrenData.length;
+            const male = childrenData.filter(child => child.gender === 'Male').length;
+            const female = childrenData.filter(child => child.gender === 'Female').length;
+
+            document.getElementById('totalChildren').textContent = total;
+            document.getElementById('maleChildren').textContent = male;
+            document.getElementById('femaleChildren').textContent = female;
+        }
+
+        function displayChildren() {
+            const container = document.getElementById('childrenContainer');
+            
+            if (childrenData.length === 0) {
+                container.innerHTML = '<p style="text-align: center; color: #666;">No children registered yet.</p>';
+                return;
+            }
+
+            const childrenHTML = childrenData.map((child, index) => `
+                <div class="child-card">
+                    <div class="child-info">
+                        <div class="info-item">
+                            <span class="info-label">Name</span>
+                            <span class="info-value">${child.childName}</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Age</span>
+                            <span class="info-value">${calculateAge(child.dateOfBirth)} years</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Gender</span>
+                            <span class="info-value">${child.gender}</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Caste</span>
+                            <span class="info-value">${child.caste || 'N/A'}</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Father's Name</span>
+                            <span class="info-value">${child.fatherName || 'N/A'}</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Mother's Name</span>
+                            <span class="info-value">${child.motherName || 'N/A'}</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Phone</span>
+                            <span class="info-value">${child.phoneNumber || 'N/A'}</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Aadhar Number</span>
+                            <span class="info-value">${child.aadharNumber || 'N/A'}</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Weight</span>
+                            <span class="info-value">${child.weight ? child.weight + ' kg' : 'N/A'}</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Height</span>
+                            <span class="info-value">${child.height ? child.height + ' cm' : 'N/A'}</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Health Status</span>
+                            <span class="info-value">${child.healthStatus || 'N/A'}</span>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+
+            container.innerHTML = childrenHTML;
+        }
+
+        // Form submission handlers
+        document.getElementById('childForm').addEventListener('submit', function(e) {
             e.preventDefault();
             
-            // Get form data
             const formData = new FormData(this);
-            const inquiryData = {};
+            const childData = {};
             
             for (let [key, value] of formData.entries()) {
-                inquiryData[key] = value;
+                childData[key] = value;
             }
             
-            // Show success message
-            alert('Thank you for your inquiry! We will contact you soon.');
+            childrenData.push(childData);
+            updateStats();
+            displayChildren();
             
-            // Reset form
             this.reset();
-            
-            console.log('Inquiry submitted:', inquiryData);
+            alert('Child record added successfully!');
         });
 
-        // Add scroll effect to header
-        window.addEventListener('scroll', function() {
-            const header = document.querySelector('.header');
-            if (window.scrollY > 100) {
-                header.style.background = 'rgba(30, 60, 114, 0.95)';
-                header.style.backdropFilter = 'blur(10px)';
-            } else {
-                header.style.background = 'linear-gradient(135deg, #1e3c72 0%, #2a5298 100%)';
-                header.style.backdropFilter = 'none';
-            }
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Login functionality would be implemented with backend authentication.');
         });
 
-        // Animate stats on scroll
-        function animateStats() {
-            const stats = document.querySelectorAll('.stat-number');
-            stats.forEach(stat => {
-                const target = parseInt(stat.textContent.replace(/\D/g, ''));
-                let current = 0;
-                const increment = target / 100;
-                const timer = setInterval(() => {
-                    current += increment;
-                    if (current >= target) {
-                        current = target;
-                        clearInterval(timer);
-                    }
-                    if (stat.textContent.includes('%')) {
-                        stat.textContent = Math.floor(current) + '%';
-                    } else if (stat.textContent.includes('+')) {
-                        stat.textContent = Math.floor(current) + '+';
-                    } else {
-                        stat.textContent = Math.floor(current);
-                    }
-                }, 20);
-            });
-        }
-
-        // Trigger stats animation when section is visible
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    animateStats();
-                    observer.unobserve(entry.target);
-                }
-            });
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Thank you for your message! We will get back to you soon.');
+            this.reset();
         });
 
-        const aboutSection = document.querySelector('.about');
-        if (aboutSection) {
-            observer.observe(aboutSection);
-        }
+        // Initialize the page
+        updateStats();
+        displayChildren();
     </script>
 </body>
 </html>
